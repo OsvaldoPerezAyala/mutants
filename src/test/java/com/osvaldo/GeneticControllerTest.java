@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class MutantFinderControllerTest {
+public class GeneticControllerTest {
 
     @Test
     public void testConnection() {

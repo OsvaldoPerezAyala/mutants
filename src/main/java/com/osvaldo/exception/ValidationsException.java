@@ -1,14 +1,13 @@
 package com.osvaldo.exception;
 
-public class CustomizedException extends Exception {
+public class ValidationsException extends Exception {
     private String message;
 
-
-    public CustomizedException() {
+    public ValidationsException() {
         super();
     }
 
-    public CustomizedException(String message) {
+    public ValidationsException(String message) {
         super();
         this.message = message;
     }

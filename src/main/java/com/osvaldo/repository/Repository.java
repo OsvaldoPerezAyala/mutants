@@ -14,12 +14,15 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.json.JSONObject;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.osvaldo.utils.Constants.*;
 
-@ApplicationScoped
+
+@Singleton
 public class Repository {
     private static final Logger LOGGER = Logger.getLogger(Repository.class.getName());
     private static MongoClient mongoClient;
@@ -27,9 +30,6 @@ public class Repository {
     @ConfigProperty(name = "connection_chain")
     String connectionChain;
 
-    /*public Repository(String connectionChain) {
-        Repository.connectionChain = connectionChain;
-    }*/
 
     public synchronized MongoClient getMongoClient() {
         if (Objects.isNull(mongoClient)) {
@@ -48,39 +48,47 @@ public class Repository {
                             .version(ServerApiVersion.V1)
                             .build())
                     .build();
-            mongoClient = MongoClients.create(settings);
+            Repository.mongoClient = MongoClients.create(settings);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error to connect: ", e);
         }
     }
 
     public void insertDNA(final MongoClient mongoClient, final JSONObject dna) {
-        MongoDatabase database = mongoClient.getDatabase("cafeDB");
-        MongoCollection<Document> dnaCollection = database.getCollection("dna");
+        try {
+            MongoDatabase database = mongoClient.getDatabase(CAFE_DB);
+            MongoCollection<Document> dnaCollection = database.getCollection(DNA);
 
-        dnaCollection.insertOne(Document.parse(dna.toString()));
-        LOGGER.log(Level.INFO, "Inserted");
+            dnaCollection.insertOne(Document.parse(dna.toString()));
+            LOGGER.log(Level.INFO, "Inserted");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error toInsert: ", e);
+        }
     }
 
     public JSONObject getStats(final MongoClient mongoClient) {
 
-        MongoDatabase database = mongoClient.getDatabase("cafeDB");
-        MongoCollection<Document> dnaCollection = database.getCollection("dna");
-
-        Document query = new Document();
-        query.put("is_mutant", true);
-        var mutants = dnaCollection.countDocuments(query);
-
-        Document queryNoMutants = new Document();
-        queryNoMutants.put("is_mutant", false);
-        var humans = dnaCollection.countDocuments(queryNoMutants);
-
         var summary = new JSONObject();
+        try {
+            MongoDatabase database = mongoClient.getDatabase(CAFE_DB);
+            MongoCollection<Document> dnaCollection = database.getCollection(DNA);
 
-        summary.put("count_mutant_dna", mutants);
-        summary.put("count_human_dna", humans);
-        double ratio = mutants != 0 && humans != 0 ? Double.parseDouble(mutants + "") / Double.parseDouble(humans + "") : 0d;
-        summary.put("ratio", ratio);
+            Document query = new Document();
+            query.put(IS_MUTANT, true);
+            var mutants = dnaCollection.countDocuments(query);
+
+            Document queryNoMutants = new Document();
+            queryNoMutants.put(IS_MUTANT, false);
+            var humans = dnaCollection.countDocuments(queryNoMutants);
+
+            summary.put(COUNT_MUTANT_DNA, mutants);
+            summary.put(COUNT_HUMAN_DNA, humans);
+            double ratio = mutants != 0 && humans != 0 ? Double.parseDouble(mutants + "") / Double.parseDouble(humans + "") : 0d;
+            summary.put(RATIO, ratio);
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error get stats: ", e);
+        }
         return summary;
     }
 

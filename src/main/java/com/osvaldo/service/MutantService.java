@@ -1,52 +1,53 @@
 package com.osvaldo.service;
 
-import com.osvaldo.exception.CustomizedException;
+import com.osvaldo.exception.ValidationsException;
 import com.osvaldo.repository.Repository;
+import com.osvaldo.utils.Validations;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Arrays;
 
+import static com.osvaldo.utils.Constants.DNA;
+import static com.osvaldo.utils.Constants.IS_MUTANT;
+
 @ApplicationScoped
-public class Service {
+public class MutantService {
 
     @ConfigProperty(name = "connection_chain")
     String chainConnection;
-
+    @Inject
+    Validations validations;
     @Inject
     Repository repository;
 
-    public boolean isMutant(JSONObject payloadObject) throws CustomizedException {
 
-        var dnaMatrix = this.buildMatrix(payloadObject.getJSONArray("dna").toList().toArray(String[]::new));
-        this.validateMatrix(dnaMatrix);
+    public boolean isMutant(final String payload) throws ValidationsException {
+
+        var dnaJSONObject = validations.validatePayload(payload);
+        var dnaJSONArray = dnaJSONObject.getJSONArray(DNA);
+        validations.validateMatrixDimension(dnaJSONArray);
+        var dnaMatrix = this.buildDNAMatrix(dnaJSONObject.getJSONArray(DNA));
         var sequences = this.determinateSequences(dnaMatrix);
         var isMutant = sequences > 1;
-        this.saveResult(payloadObject, isMutant);
+        this.saveDNASequences(dnaJSONObject, isMutant);
         return isMutant;
     }
 
-    public void saveResult(final JSONObject dna, final boolean isMutant) {
+    public void saveDNASequences(final JSONObject dna, final boolean isMutant) {
 
-        dna.put("is_mutant", isMutant);
-        //Repository repository = new Repository(chainConnection);
+        dna.put(IS_MUTANT, isMutant);
         repository.insertDNA(repository.getMongoClient(), dna);
     }
 
-    private char[][] buildMatrix(String[] dna) {
+    private char[][] buildDNAMatrix(final JSONArray dnaJSONArray) {
+
+        var dna = dnaJSONArray.toList().toArray(String[]::new);
         var array = Arrays.stream(dna).map(String::toCharArray);
         return array.toArray(char[][]::new);
-    }
-
-    private void validateMatrix(char[][] charMatrix) throws CustomizedException {
-        var large = charMatrix.length;
-        var tall = charMatrix[0].length;
-
-        if (large != tall) {
-            throw new CustomizedException("Height does not belong to width");
-        }
     }
 
     public int determinateSequences(char[][] charMatrix) {

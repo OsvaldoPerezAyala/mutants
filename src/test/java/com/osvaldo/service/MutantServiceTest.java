@@ -2,15 +2,14 @@ package com.osvaldo.service;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-import org.wildfly.common.Assert;
 
 import javax.inject.Inject;
 
 @QuarkusTest
-class ServiceTest {
+class MutantServiceTest {
 
     @Inject
-    Service service;
+    MutantService mutantService;
 
     @Test
     public void testArray() throws Exception {
