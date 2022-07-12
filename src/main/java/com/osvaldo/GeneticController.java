@@ -28,7 +28,7 @@ public class GeneticController {
         try {
             response = mutantService.isMutant(payload) ? Response.status(Response.Status.OK).build() : Response.status(Response.Status.FORBIDDEN).build();
         } catch (ValidationsException mve) {
-            LOGGER.log(Level.SEVERE, "Exception: ", mve);
+            LOGGER.log(Level.SEVERE, "Validation exception: {0}", mve.getMessage());
             response = Response.status(Response.Status.FORBIDDEN).build();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error: ", e);

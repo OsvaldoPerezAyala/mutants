@@ -9,6 +9,12 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class Validations {
 
+    /**
+     * This method validate the payload structure
+     *
+     * @param payload the payload received
+     * @return JSONObject who contains the JSON structure
+     */
     public JSONObject validatePayload(final String payload) throws ValidationsException {
 
         var dnaJSONObject = new JSONObject(payload);
@@ -22,6 +28,11 @@ public class Validations {
         return dnaJSONObject;
     }
 
+    /**
+     * This method validate the DNA matrix NxN dimensions
+     *
+     * @param dna contains the DNA sequences array
+     */
     public void validateMatrixDimension(final JSONArray dna) throws ValidationsException {
         var width = dna.length();
         if (width == 0) {
@@ -34,6 +45,5 @@ public class Validations {
             }
         }
     }
-
 
 }

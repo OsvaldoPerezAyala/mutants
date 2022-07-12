@@ -7,6 +7,11 @@ public class ValidationsException extends Exception {
         super();
     }
 
+    /**
+     * This receives a message error from the validations
+     *
+     * @param message validation error message
+     */
     public ValidationsException(String message) {
         super();
         this.message = message;

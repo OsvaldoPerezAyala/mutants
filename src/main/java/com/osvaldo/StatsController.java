@@ -1,8 +1,6 @@
 package com.osvaldo;
 
-import com.osvaldo.repository.Repository;
 import com.osvaldo.service.StatsService;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

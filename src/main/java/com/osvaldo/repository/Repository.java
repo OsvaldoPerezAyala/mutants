@@ -8,18 +8,13 @@ import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.json.JSONObject;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.osvaldo.utils.Constants.*;
 
 
 @Singleton
@@ -30,7 +25,11 @@ public class Repository {
     @ConfigProperty(name = "connection_chain")
     String connectionChain;
 
-
+    /**
+     * This method provides the mongo client connection to insert o get data from MongoDB
+     *
+     * @return mongo client connection
+     */
     public synchronized MongoClient getMongoClient() {
         if (Objects.isNull(mongoClient)) {
             connect();
@@ -38,6 +37,9 @@ public class Repository {
         return mongoClient;
     }
 
+    /**
+     * This method build the configuration to do connection to MongoDB
+     */
     private void connect() {
         LOGGER.log(Level.INFO, "Connecting...");
         try {
@@ -54,42 +56,34 @@ public class Repository {
         }
     }
 
-    public void insertDNA(final MongoClient mongoClient, final JSONObject dna) {
+    /**
+     * This method insert dna´s person and the determination result if it´s human or mutant
+     *
+     * @param dnaCollection MongoDB collection connection
+     * @param document      JSONObject who contains the dna array and if it´s from mutant or human
+     **/
+    public void insertDNA(final MongoCollection<Document> dnaCollection, final Document document) {
         try {
-            MongoDatabase database = mongoClient.getDatabase(CAFE_DB);
-            MongoCollection<Document> dnaCollection = database.getCollection(DNA);
-
-            dnaCollection.insertOne(Document.parse(dna.toString()));
+            dnaCollection.insertOne(document);
             LOGGER.log(Level.INFO, "Inserted");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error toInsert: ", e);
         }
     }
 
-    public JSONObject getStats(final MongoClient mongoClient) {
-
-        var summary = new JSONObject();
+    /**
+     * This method get and calculate stats of dna from database
+     *
+     * @param dnaCollection MongoDB collection connection
+     * @return counter of records by filter
+     */
+    public long countRecords(final MongoCollection<Document> dnaCollection, final Document query) {
         try {
-            MongoDatabase database = mongoClient.getDatabase(CAFE_DB);
-            MongoCollection<Document> dnaCollection = database.getCollection(DNA);
-
-            Document query = new Document();
-            query.put(IS_MUTANT, true);
-            var mutants = dnaCollection.countDocuments(query);
-
-            Document queryNoMutants = new Document();
-            queryNoMutants.put(IS_MUTANT, false);
-            var humans = dnaCollection.countDocuments(queryNoMutants);
-
-            summary.put(COUNT_MUTANT_DNA, mutants);
-            summary.put(COUNT_HUMAN_DNA, humans);
-            double ratio = mutants != 0 && humans != 0 ? Double.parseDouble(mutants + "") / Double.parseDouble(humans + "") : 0d;
-            summary.put(RATIO, ratio);
-
+            return dnaCollection.countDocuments(query);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error get stats: ", e);
         }
-        return summary;
+        return 0;
     }
 
 }
