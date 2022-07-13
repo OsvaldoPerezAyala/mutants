@@ -6,10 +6,11 @@ La finalidad de este servicio es validar secuencias de ADN para determinar el ra
 
 El proceso para analizar y validar secuencias de ADN es el siguiente:
 Se requiere invocar el servicio desde el endpoint: /mutant
-Al recibir la petición elñ servicio validará que sea util para intentar procesarla, una vez validad, 
+Al recibir la petición el servicio validará que sea util para intentar procesarla, una vez validad, 
 se almacenara en base de datos (MongoDB), para que se pueda tener un registro de cada ADN validado.
 
 En caso que la peticion no contenga una carga util, el servicio respondera con un codigo 403 Forbidden.
+Así mismo si el ADN proporcionado no es mutante, tambien respondera con un codigo 403 Forbidden.
 
 El servicio tambien cuenta con un endpoint dedicado para obtener las estadisticas sobre los ADNs sometidos a evaluación, 
 el cual se invoca desde el siguiente endpoint: /stats
@@ -24,8 +25,8 @@ Este endpoint no requiere de una carga util, solo requiere de generar la petici�
 - Maven 3.8.6 +
 - Mongo DB
 >**Nota**: El proyecto ya tienen configurada una base de datos por default la cual está desplegada en la nube de Mongo
-> Se puede utilizar esta misma base o se puede reemplazar por la conexion de preferencia, siempre y cuando se reemplaze
-> la cadena de conexíon dentro del archivo application.properties en la ruta del proyecto: ./src/resources/application.properties
+> Se puede utilizar esta misma base o se puede reemplazar por la conexión de preferencia, siempre y cuando se reemplace
+> la cadena de conexión dentro del archivo application.properties en la ruta del proyecto: ./src/resources/application.properties
 > Sustituir el contenido de la propiedad connection_chain
 
 ## 🔨 Compilación:
@@ -59,7 +60,7 @@ Para ejecutar las pruebas del servicio y determinar la covertura correr el sigui
 ./mvn clean test
 ```
 
->**Nota**: La covertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
+>**Nota**: La cobertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
 
 ## 📍 Endpoints
 - /mutant
@@ -78,9 +79,9 @@ Para ejecutar las pruebas del servicio y determinar la covertura correr el sigui
       ```
     - Respuesta del servicio: 
     - 200 (OK) : El ADN se detecto como mutante
-    - 403 (Forbbiden) : El ADN no se no se detecto al de un mutante o no tiene la estructura adecuada
+    - 403 (Forbbiden) : El ADN no se detectó de un mutante o no tiene la estructura adecuada
 - /stats
-  - Permite obtener las estadisticas de los ADNs evaluados previamente
+  - Permite obtener las estadísticas de los ADNs evaluados previamente
     - La respuesta debera ser similar a la siguiente mostrada
       - ```json
         {
@@ -92,7 +93,7 @@ Para ejecutar las pruebas del servicio y determinar la covertura correr el sigui
       - En donde:
       - count_human_dna: contiene los ADNs de humanos validados
       - count_mutant_dna: contiene los ADNs de mutantes validados
-      - ratio: Relacion entre mutantes y no mutantes (count_mutant_dna/count_human_dna)
+      - ratio: Relación entre mutantes y no mutantes (count_mutant_dna/count_human_dna)
 
 ## 🚀 Despilegue
 
@@ -101,12 +102,12 @@ Este servicio fue subido a la nube de GCP, configurando un app engine y desplega
 ```shell script
  gcloud init
 ```
-Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP sera desplegado
+Este comando permite inicializar el proyecto, para poder elegir, hacía que proyecto de CGP será desplegado
 
 ```shell script
  gcloud app deploy
 ```
-Este comando hara el despliegue para el app engine del proyecto seleccionado
+Este comando hará el despliegue para el app engine del proyecto seleccionado
 
 ### 📝 Requisitos de ejecución.
 - python3
