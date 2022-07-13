@@ -18,7 +18,7 @@ Este endpoint no requiere de una carga util, solo requiere de generar la petici�
 ![](./assets/sequence_diagram.png)
 
 
-## Requisitos de ejecución. 
+## 📝 Requisitos de ejecución. 
 
 - java 11 + 
 - Maven 3.6.X
@@ -28,7 +28,7 @@ Este endpoint no requiere de una carga util, solo requiere de generar la petici�
 > la cadena de conexíon dentro del archivo application.properties en la ruta del proyecto: ./src/resources/application.properties
 > Sustituir el contenido de la propiedad connection_chain
 
-## Compilación:
+## 🔨 Compilación:
 
 - java 11 +
 - Maven 3.6.X
@@ -42,7 +42,7 @@ Puede ejecutar la aplicación en modo de desarrollo que habilite la codificació
 ./mvnw compile quarkus:dev
 ```
 
-## Empaquetando y corriendo el servicio
+## ⚙ Empaquetando y corriendo el servicio
 
 El servicio puede ser empaquetado usando el siguiente comando en terminal:
 ```shell script
@@ -59,7 +59,7 @@ Si deseas que se empaqueten las dependencias utiliza el siguiente comando:
 ```
 La aplicacion puede ser ejecutada con el siguiente comando en terminal  `java -jar target/*-runner.jar`.
 
-## Endpoints
+## 📍 Endpoints
 - /mutant
   - Permite evaluar si e un array de secuencias de ADN de las dimenciones NxN
     - ```json
@@ -98,8 +98,8 @@ Para ejecutar las pruebas del servicio y determinar la covertura correr el sigui
 ```
 >**Nota**: La covertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
 
-
-## Ejecutar el servicio en la nube
+## 🚀 Despilegue
+### Ejecutar el servicio en la nube
 
 Puedes ejecutar el servicio desde la nube, utilizando postman o cualquiera sea la herramienta de preferencia para realizar peticiones HTTP.
 
@@ -117,3 +117,19 @@ Abajo añado el CURL del servicio para usarlo desde postman.
 >curl --location --request POST 'https://grand-practice-355902.uc.r.appspot.com/stats' \
 --header 'Content-Type: application/json' \
 --data-raw ''
+Este servicio fue subido a la nube de GCP, configurando un app engine y deployanolo con los siguientes comandos  
+
+```shell script
+ gcloud init
+```
+Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP sera desplegado
+
+```shell script
+ gcloud app deplou
+```
+Este comando hara el despliegue para el app engine del proyecto seleccionado
+
+ ### 📝 Requisitos de ejecución. 
+ - python3
+ - gcloud sdk
+ -  
