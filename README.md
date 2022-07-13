@@ -46,18 +46,20 @@ Puede ejecutar la aplicación en modo de desarrollo que habilite la codificació
 
 El servicio puede ser empaquetado usando el siguiente comando en terminal:
 ```shell script
-./mvnw package
+./mvn clean package
 ```
-Este produce el archivo `quarkus-run.jar` en la ruta del proyecto `target/quarkus-app/`.
-Recuerda, este servicio no empaqueta las dependencias en el mismo jar, asi que las encontraras en la ruta `target/quarkus-app/lib/`
+Este produce el archivo `mutantes-1.0.0-SNAPSHOT-runner.jar` en la ruta del proyecto `target/`.
 
-La aplicacion puede ser ejecutada con el siguiente comando en terminal `java -jar target/quarkus-app/quarkus-run.jar`.
+La aplicacion puede ser ejecutada con el siguiente comando en terminal `java -jar target/mutantes-1.0.0-SNAPSHOT-runner.jar`.
 
-Si deseas que se empaqueten las dependencias utiliza el siguiente comando:
+## Test
+
+Para ejecutar las pruebas del servicio y determinar la covertura correr el siguiente comando:
 ```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+./mvn clean test
 ```
-La aplicacion puede ser ejecutada con el siguiente comando en terminal  `java -jar target/*-runner.jar`.
+
+>**Nota**: La covertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
 
 ## 📍 Endpoints
 - /mutant
@@ -91,12 +93,6 @@ La aplicacion puede ser ejecutada con el siguiente comando en terminal  `java -j
       - count_human_dna: contiene los ADNs de humanos validados
       - count_mutant_dna: contiene los ADNs de mutantes validados
       - ratio: Relacion entre mutantes y no mutantes (count_mutant_dna/count_human_dna)
-## Test
-Para ejecutar las pruebas del servicio y determinar la covertura correr el siguiente comando:
-```shell script
-./mvnw mvn clean test
-```
->**Nota**: La covertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
 
 ## 🚀 Despilegue
 
