@@ -104,7 +104,7 @@ Este servicio fue subido a la nube de GCP, configurando un app engine y desplega
 Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP sera desplegado
 
 ```shell script
- gcloud app deplou
+ gcloud app deploy
 ```
 Este comando hara el despliegue para el app engine del proyecto seleccionado
 
