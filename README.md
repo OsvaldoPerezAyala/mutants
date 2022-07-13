@@ -99,6 +99,24 @@ Para ejecutar las pruebas del servicio y determinar la covertura correr el sigui
 >**Nota**: La covertura de las pruebas unitarias se almacenara en la ruta /target/site/index.html
 
 ## 🚀 Despilegue
+
+Este servicio fue subido a la nube de GCP, configurando un app engine y desplegado con los siguientes comandos
+
+```shell script
+ gcloud init
+```
+Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP sera desplegado
+
+```shell script
+ gcloud app deplou
+```
+Este comando hara el despliegue para el app engine del proyecto seleccionado
+
+### 📝 Requisitos de ejecución.
+- python3
+- gcloud sdk
+
+
 ### Ejecutar el servicio en la nube
 
 Puedes ejecutar el servicio desde la nube, utilizando postman o cualquiera sea la herramienta de preferencia para realizar peticiones HTTP.
@@ -117,19 +135,4 @@ Abajo añado el CURL del servicio para usarlo desde postman.
 >curl --location --request POST 'https://grand-practice-355902.uc.r.appspot.com/stats' \
 --header 'Content-Type: application/json' \
 --data-raw ''
-Este servicio fue subido a la nube de GCP, configurando un app engine y deployanolo con los siguientes comandos  
 
-```shell script
- gcloud init
-```
-Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP sera desplegado
-
-```shell script
- gcloud app deplou
-```
-Este comando hara el despliegue para el app engine del proyecto seleccionado
-
- ### 📝 Requisitos de ejecución. 
- - python3
- - gcloud sdk
- -  
