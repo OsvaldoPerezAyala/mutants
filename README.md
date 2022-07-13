@@ -9,12 +9,12 @@ Se requiere invocar el servicio desde el endpoint: /mutant
 Al recibir la petición el servicio validará que sea util para intentar procesarla, una vez validad, 
 se almacenara en base de datos (MongoDB), para que se pueda tener un registro de cada ADN validado.
 
-En caso que la peticion no contenga una carga util, el servicio respondera con un codigo 403 Forbidden.
-Así mismo si el ADN proporcionado no es mutante, tambien respondera con un codigo 403 Forbidden.
+En caso que la petición no contenga una carga util, el servicio responderá con un código 403 Forbidden.
+Así mismo si el ADN proporcionado no es mutante, también responderá con un código 403 Forbidden.
 
-El servicio tambien cuenta con un endpoint dedicado para obtener las estadisticas sobre los ADNs sometidos a evaluación, 
+El servicio también cuenta con un endpoint dedicado para obtener las estadísticas sobre los ADNs sometidos a evaluación, 
 el cual se invoca desde el siguiente endpoint: /stats
-Este endpoint no requiere de una carga util, solo requiere de generar la petición para que regrese las estadisticas.
+Este endpoint no requiere de una carga util, solo requiere de generar la petición para que regrese las estadísticas.
 
 ![](./assets/sequence_diagram.png)
 
@@ -55,7 +55,7 @@ La aplicacion puede ser ejecutada con el siguiente comando en terminal `java -ja
 
 ## Test
 
-Para ejecutar las pruebas del servicio y determinar la covertura correr el siguiente comando:
+Para ejecutar las pruebas del servicio y determinar la cobertura correr el siguiente comando:
 ```shell script
 ./mvn clean test
 ```
