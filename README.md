@@ -21,7 +21,7 @@ Este endpoint no requiere de una carga util, solo requiere de generar la petici�
 ## 📝 Requisitos de ejecución. 
 
 - java 11 + 
-- Maven 3.6.X
+- Maven 3.8.6 +
 - Mongo DB
 >**Nota**: El proyecto ya tienen configurada una base de datos por default la cual está desplegada en la nube de Mongo
 > Se puede utilizar esta misma base o se puede reemplazar por la conexion de preferencia, siempre y cuando se reemplaze
@@ -31,7 +31,7 @@ Este endpoint no requiere de una carga util, solo requiere de generar la petici�
 ## 🔨 Compilación:
 
 - java 11 +
-- Maven 3.6.X
+- Maven 3.8.6 +
 
 >**Nota**: Este proyecto se construyo con el framework Quarkus.
 
