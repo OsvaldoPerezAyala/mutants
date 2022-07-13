@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
 
 import static com.osvaldo.utils.Constants.*;
 
@@ -38,7 +37,7 @@ public class MutantService {
 
         var dnaJSONObject = validations.validatePayload(payload);
         var dnaJSONArray = dnaJSONObject.getJSONArray(DNA);
-        validations.validateMatrixDimension(dnaJSONArray);
+        validations.validateMatrixDimensionAndProteinsAllowd(dnaJSONArray);
         var dnaMatrix = this.buildDNAMatrix(dnaJSONObject.getJSONArray(DNA));
         var sequences = this.determinateSequences(dnaMatrix);
         var isMutant = sequences > 1;

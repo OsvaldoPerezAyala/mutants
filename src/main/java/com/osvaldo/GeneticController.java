@@ -10,7 +10,6 @@ import javax.ws.rs.core.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @Path("/mutant")
 public class GeneticController {
     private static final Logger LOGGER = Logger.getLogger(GeneticController.class.getName());

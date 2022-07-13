@@ -64,9 +64,21 @@ public class GeneticControllerTest {
     }
 
     @Test
-    void testResponse403_WhenDNAMatrixNotBeEmpty() {
+    void testResponse403_WhenSequencesContainNotAllowedProteins() {
 
         final String dnaPayload = "{\"dna\":[]}";
+        given().header("Content-Type", MediaType.APPLICATION_JSON)
+                .urlEncodingEnabled(false)
+                .request()
+                .body(dnaPayload)
+                .when().post(ENDPOINT)
+                .then().statusCode(is(403));
+    }
+
+    @Test
+    void testResponse403_WhenDNAMatrixNotBeEmpty() {
+
+        final String dnaPayload = "{\"dna\":[\"ABCDEF\", \"GHIJKL\", \"MNOPQR\", \"STUVWX\", \"YZABCD\", \"EFGHIJ\"]}";
         given().header("Content-Type", MediaType.APPLICATION_JSON)
                 .urlEncodingEnabled(false)
                 .request()

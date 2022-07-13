@@ -20,10 +20,9 @@ class MutantServiceTest {
         String dna2 = "{\"dna\":[\"AAAATC\", \"GTAACA\", \"TTTGCG\", \"GGGGCC\", \"TGACCC\", \"GGAACT\"]}";
         String dna3 = "{\"dna\":[\"AACATC\", \"GTAACA\", \"TTTGCG\", \"GTGGAC\", \"TGCCCC\", \"GGAACT\"]}";
         String dna4 = "{\"dna\":[\"AACATCG\", \"GTAACAG\", \"TTTGCGG\", \"GTGGACG\", \"TGCCCCT\", \"GGACCTT\", \"ATCTTTT\"]}";
-        String dna5 = "{\"dna\":[\"AAAATCGT\", \"GTAACADC\", \"TTTGCGTT\", \"GGGGCCGC\", \"TGACCCCA\", \"GGAACTAT\", \"GGATTTTC\", \"GGATTATA\"]}";
-        String dna6 = "{\"dna\":[\"ABCDEF\", \"GHIJKL\", \"MNOPQR\", \"STUVWX\", \"YZABCD\", \"EFGHIJ\"]}";
-        String dna7 = "{\"dna\":[\"ACGT\", \"ACTG\", \"GCTA\", \"TGAC\"]}";
-        String dna8 = "{\"dna\":[\"ACGTC\", \"ACTGC\", \"GCTAC\", \"TGACC\",\"TGAGA\"]}";
+        String dna5 = "{\"dna\":[\"AAAATCGT\", \"GTAACACC\", \"TTTGCGTT\", \"GGGGCCGC\", \"TGACCCCA\", \"GGAACTAT\", \"GGATTTTC\", \"GGATTATA\"]}";
+        String dna6 = "{\"dna\":[\"ACGT\", \"ACTG\", \"GCTA\", \"TGAC\"]}";
+        String dna7 = "{\"dna\":[\"ACGTC\", \"ACTGC\", \"GCTAC\", \"TGACC\",\"TGAGA\"]}";
 
         Assert.assertTrue(mutantService.isMutant(dna));
         Assert.assertTrue(mutantService.isMutant(dna2));
@@ -32,7 +31,6 @@ class MutantServiceTest {
         Assert.assertTrue(mutantService.isMutant(dna5));
         Assert.assertFalse(mutantService.isMutant(dna6));
         Assert.assertFalse(mutantService.isMutant(dna7));
-        Assert.assertFalse(mutantService.isMutant(dna8));
     }
 
 }
