@@ -64,7 +64,7 @@ Para ejecutar las pruebas del servicio y determinar la cobertura correr el sigui
 
 ## 📍 Endpoints
 - /mutant
-  - Permite evaluar si e un array de secuencias de ADN de las dimenciones NxN
+  - Permite evaluar si en un array de secuencias de ADN de las dimensiones NxN
     - ```json
           {
             "dna": [
@@ -102,7 +102,7 @@ Este servicio fue subido a la nube de GCP, configurando un app engine y desplega
 ```shell script
  gcloud init
 ```
-Este comando permite inicializar el proyecto, para poder elegir, hacía que proyecto de CGP será desplegado
+Este comando permite inicializar el proyecto, para poder elegir, hacia que proyecto de CGP será desplegado
 
 ```shell script
  gcloud app deploy
