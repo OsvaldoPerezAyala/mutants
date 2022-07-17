@@ -2,7 +2,7 @@
 
 La finalidad de este servicio es validar secuencias de ADN para determinar el ratio entre ADN mutante y no mutante.
 
-## Fujo del proceso
+## Flujo del proceso
 
 El proceso para analizar y validar secuencias de ADN es el siguiente:
 Se requiere invocar el servicio desde el endpoint: /mutant
