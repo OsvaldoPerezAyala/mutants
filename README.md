@@ -1,4 +1,4 @@
-# Projecto Mutant validator 
+# Proyecto Mutant validator 
 
 La finalidad de este servicio es validar secuencias de ADN para determinar el ratio entre ADN mutante y no mutante.
 
